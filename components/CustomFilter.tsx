@@ -1,6 +1,6 @@
 "use client"
 
-import { CustomInputProps } from '@/types';
+import { CustomInputProps } from '@/types/types';
 import React from 'react'
 
 export const CustomFilter = ({title}: CustomInputProps ) => {

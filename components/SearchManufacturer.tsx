@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { SearchManufacturerProps } from "@/types";
+import { SearchManufacturerProps } from "@/types/types";
 import { Combobox } from "@headlessui/react";
 import { Transition } from "../node_modules/@headlessui/react/dist/components/transitions/transition";
 import { useState, Fragment } from "react";
@@ -23,7 +23,7 @@ export const SearchManufacturer = ({
 
   return (
     <div className="search-manufacturer">
-      <Combobox>
+      <Combobox value={manufacturer} onChange={setManuFacturer}>
         <div className="relative w-full">
           <Combobox.Button className="absolute top-[14px]">
             <Image
@@ -60,7 +60,25 @@ export const SearchManufacturer = ({
                   }
                   value={i}
                 >
-                  {i}
+                  {({ selected, active }) => (
+                    <>
+                      <span
+                        className={`block truncate ${
+                          selected ? "font-medium" : "font-normal"
+                        }`}
+                      >
+                        {i}
+                      </span>
+
+                      {selected ? (
+                        <span
+                          className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                            active ? "text-white" : "text-pribg-primary-purple"
+                          }`}
+                        ></span>
+                      ) : null}
+                    </>
+                  )}
                 </Combobox.Option>
               ))}
             </Combobox.Options>
