@@ -13,9 +13,14 @@ export interface CustomButtonProps {
     isDisabled?: boolean;
 }
 
-// Props del Input
+export interface OptionProps {
+    title: string;
+    value: string;
+}
+
 export interface CustomInputProps {
     title: string;
+    options: OptionProps[];
 }
 
 // Props del Manufacturador
@@ -37,5 +42,23 @@ export interface CarProps {
     make: string;
     model: string;
     transmission: string;
-    year: number; 
+    year: number;
+}
+
+export interface FilterProps {
+    manufacturer?: string;
+    year?: number;
+    model?: string;
+    limit?: number;
+    fuel?: string;
+}
+
+export interface HomeProps {
+    searchParams: FilterProps;
+}
+
+export interface ShowMoreProps{
+    pageNumber : number;
+    isNext : boolean;
+
 }
