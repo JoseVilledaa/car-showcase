@@ -5,6 +5,8 @@ import Image from "next/image";
 import { CarProps } from "@/types/types";
 import { CustomButton } from "./CustomButton";
 import { calculateCarRent } from "@/utils/apiCars";
+import { CarDetails } from "./CarDetails";
+import { generateCarImageURL } from "@/utils/apiCarImages";
 
 interface CarCardProps {
   car: CarProps;
@@ -12,6 +14,8 @@ interface CarCardProps {
 
 export const CarCard = ({ car }: CarCardProps): JSX.Element => {
   const { city_mpg, year, make, model, transmission, drive } = car;
+
+  const [isOpen, setIsOpen] = useState(false);
 
   const carRent = calculateCarRent(city_mpg, year);
 
@@ -24,14 +28,14 @@ export const CarCard = ({ car }: CarCardProps): JSX.Element => {
       </div>
 
       <p className="flex mt-6 text-[32px] font font-extrabold">
-        <span className="self-start text-[14px] font-semibold">$</span>
+        <span className="self-start text-[14px] font-semibold">Q</span>
         {carRent}
-        <span className="self-start text-[14px] font-medium">/day</span>
+        <span className="self-start text-[14px] font-medium">/dia</span>
       </p>
 
       <div className="relative w-full h-40 my-3 object-contain">
         <Image
-          src="/hero.png"
+          src={generateCarImageURL(car)}
           alt="car"
           fill
           priority
@@ -49,35 +53,40 @@ export const CarCard = ({ car }: CarCardProps): JSX.Element => {
               height={20}
             />
             <p className="text-[14px]">
-                {transmission === 'a' ? 'Automatic' : 'Manual'} 
+              {transmission === "a" ? "Automatic" : "Manual"}
             </p>
           </div>
 
           <div className="flex flex-col justify-center items-start gap-2">
-            <Image
-              src={"/tire.svg"}
-              alt="no hay jefe"
-              width={20}
-              height={20}
-            />
-            <p className="text-[14px]">
-                {drive.toUpperCase()} 
-            </p>
+            <Image src={"/tire.svg"} alt="no hay jefe" width={20} height={20} />
+            <p className="text-[14px]">{drive.toUpperCase()}</p>
           </div>
 
           <div className="flex flex-col justify-center items-start gap-2">
-            <Image
-              src={"/gas.svg"}
-              alt="no hay jefe"
-              width={20}
-              height={20}
-            />
-            <p className="text-[14px]">
-                {city_mpg} MPG 
-            </p>
+            <Image src={"/gas.svg"} alt="no hay jefe" width={20} height={20} />
+            <p className="text-[14px]">{city_mpg} MPG</p>
           </div>
         </div>
+
+        <div className="car-card__btn-container">
+          <CustomButton
+            title="Presione aqui perra"
+            containerStyles="w-full py-[16px] 
+          rounded-full bg-primary-blue"
+            textStyles="text-white text-[14px] leading-[17px] font-bold"
+            rightIcon="/right-arrow.svg"
+            handleClick={() => setIsOpen(true)}
+          />
+        </div>
+
+
       </div>
+
+      <CarDetails
+      isOpen={isOpen}
+      closeModal={() => setIsOpen(false)}
+      car = {car}
+      />
     </div>
   );
 };
