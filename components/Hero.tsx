@@ -32,7 +32,6 @@ export const Hero = () => {
 
         <div className="hero__image-overlay"></div>
       </div>
-  
     </div>
   );
 };
